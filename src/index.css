@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .poker-table {
+    box-shadow: inset 0 0 0 1rem theme(colors.gray.700),
+      inset 0 0 0.5rem 1rem theme(colors.black),
+      inset 0 0 0 3rem theme(colors.green.700),
+      inset 0 0 0 3.25rem theme(colors.white);
+  }
+}
