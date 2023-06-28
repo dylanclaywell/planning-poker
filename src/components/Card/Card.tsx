@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { useState } from 'react'
+
 import { StepperButton } from './StepperButton'
 import { Value } from './Value'
 import type { PointSequence } from '../../slices/rootSlice'
