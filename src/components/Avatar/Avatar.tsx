@@ -1,18 +1,26 @@
-import clsx from 'clsx'
+import { EyeType, MouthType } from '../../slices/avatarSlice'
+
+type MouthProps = {
+  height: number
+  width: number
+  size: number
+  xPosition: number
+  yPosition: number
+}
+
+type EyeProps = {
+  height: number
+  spacing: number
+  size: number
+}
 
 export type Props = {
   eye: {
-    type: 'round' | 'happy'
-    height: number
-    spacing: number
-    size: number
-  }
+    type: EyeType
+  } & EyeProps
   mouth: {
-    type: 'flat' | 'happy' | 'frown'
-    height: number
-    size: number
-    offset: number
-  }
+    type: MouthType
+  } & MouthProps
 }
 
 function RoundEye({
@@ -22,10 +30,7 @@ function RoundEye({
   size,
 }: {
   side: 'left' | 'right'
-  height: number
-  spacing: number
-  size: number
-}) {
+} & EyeProps) {
   return (
     <div
       className="rounded-full absolute bg-black"
@@ -47,10 +52,7 @@ function HappyEye({
   size,
 }: {
   side: 'left' | 'right'
-  height: number
-  spacing: number
-  size: number
-}) {
+} & EyeProps) {
   return (
     <div
       className="rounded-full absolute bg-black"
@@ -73,10 +75,7 @@ function FlatEye({
   size,
 }: {
   side: 'left' | 'right'
-  height: number
-  spacing: number
-  size: number
-}) {
+} & EyeProps) {
   return (
     <div
       className="rounded-full absolute bg-black"
@@ -91,13 +90,12 @@ function FlatEye({
   )
 }
 
-function Eye(args: {
-  type: 'round' | 'happy' | 'flat'
-  side: 'left' | 'right'
-  height: number
-  spacing: number
-  size: number
-}) {
+function Eye(
+  args: {
+    type: 'round' | 'happy' | 'flat'
+    side: 'left' | 'right'
+  } & EyeProps
+) {
   switch (args.type) {
     case 'round':
       return <RoundEye {...args} />
@@ -108,38 +106,51 @@ function Eye(args: {
   }
 }
 
-function HappyMouth({
-  size,
-  height,
-  offset,
-}: {
-  size: number
-  height: number
-  offset: number
-}) {
+function HappyMouth({ size, height, width, xPosition, yPosition }: MouthProps) {
   return (
     <div
-      className="rounded-full absolute bg-black -translate-x-1/2"
+      className="rounded-full absolute bg-black"
       style={{
         borderRadius: `0 0 ${size / 16}rem ${size / 16}rem`,
         width: `${size / 16}rem`,
         height: `${size / 2 / 16}rem`,
-        top: `calc(50% + ${height / 16}rem)`,
-        left: `calc(50% - ${offset / 16}rem)`,
+        transform: `translateX(-50%) scaleX(${width / 16}) scaleY(${
+          height / 16
+        }) `,
+        top: `calc(50% + ${yPosition / 16}rem)`,
+        left: `calc(50% + ${xPosition / 16}rem)`,
       }}
     ></div>
   )
 }
 
-function Mouth(args: {
-  type: 'happy' | 'flat' | 'frown'
-  size: number
-  height: number
-  offset: number
-}) {
+function FlatMouth({ size, height, width, xPosition, yPosition }: MouthProps) {
+  return (
+    <div
+      className="rounded-full absolute bg-black"
+      style={{
+        width: `${size / 16}rem`,
+        height: `${size / 2 / 16}rem`,
+        transform: `translateX(-50%) scaleX(${width / 16}) scaleY(${
+          height / 16
+        }) `,
+        top: `calc(50% + ${yPosition / 16}rem)`,
+        left: `calc(50% + ${xPosition / 16}rem)`,
+      }}
+    ></div>
+  )
+}
+
+function Mouth(
+  args: {
+    type: MouthType
+  } & MouthProps
+) {
   switch (args.type) {
     case 'happy':
       return <HappyMouth {...args} />
+    case 'flat':
+      return <FlatMouth {...args} />
   }
 }
 

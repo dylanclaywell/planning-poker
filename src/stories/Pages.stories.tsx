@@ -22,13 +22,13 @@ function DefaultRender() {
   )
 }
 
-function WithFibonacciRender() {
-  const store = createStore({
-    root: {
-      pointSequence: 'fibonacci',
-    },
-  })
+const store = createStore({
+  root: {
+    pointSequence: 'fibonacci',
+  },
+})
 
+function WithFibonacciRender() {
   return (
     <Provider store={store}>
       <App />
