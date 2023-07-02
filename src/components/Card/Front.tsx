@@ -1,26 +1,18 @@
 import clsx from 'clsx'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Value } from './Value'
-import { StepperButton } from './StepperButton'
+import { fibonacci } from './utils'
+import { Controls } from './Controls'
 
 export type Props = {
   sequence?: 'default' | 'fibonacci'
   value: number
-  setValue: (value: number) => void
+  setValue?: (value: number) => void
   flipped?: boolean
   readOnly?: boolean
-}
-
-const fibonacci = [1, 2, 3, 5, 8, 13, 21]
-
-function getClosestFibonacci(value: number, direction: 'up' | 'down') {
-  const closestUp = fibonacci.find((n) => n > value)
-  const closestDown = [...fibonacci].reverse().find((n) => n < value)
-
-  return direction === 'up'
-    ? closestUp ?? fibonacci[fibonacci.length - 1]
-    : closestDown ?? fibonacci[0]
+  color: string
+  setColor: (color: string) => void
 }
 
 export function Front({
@@ -29,6 +21,8 @@ export function Front({
   setValue,
   flipped,
   readOnly,
+  color,
+  setColor,
 }: Props) {
   const [_value, _setValue] = useState<string>(value.toString())
 
@@ -57,7 +51,7 @@ export function Front({
               if (isNaN(number)) return
 
               _setValue(e.target.value)
-              setValue(number)
+              setValue?.(number)
             }}
             maxLength={2}
             className={clsx('text-6xl text-center w-24', {
@@ -68,39 +62,20 @@ export function Front({
             })}
             value={_value}
           />
-          {!readOnly && (
-            <div className="flex flex-col absolute left-[calc(100%_+_1rem)] top-1/2 -translate-y-1/2">
-              <StepperButton
-                onClick={() => {
-                  const newValue =
-                    sequence === 'default'
-                      ? value + 1
-                      : getClosestFibonacci(value, 'up') ??
-                        fibonacci[fibonacci.length - 1]
-
-                  setValue(newValue)
-                  _setValue(newValue.toString())
-                }}
-                direction="up"
-              />
-              <StepperButton
-                onClick={() => {
-                  const newValue =
-                    sequence === 'default'
-                      ? value - 1
-                      : getClosestFibonacci(value, 'down') ??
-                        fibonacci[fibonacci.length - 1]
-
-                  setValue(newValue)
-                  _setValue(newValue.toString())
-                }}
-                direction="down"
-              />
-            </div>
-          )}
         </div>
         <Value value={value} suit="hearts" upsideDown />
       </div>
+
+      {!readOnly && (
+        <Controls
+          sequence={sequence}
+          value={value}
+          setValue={setValue}
+          _setValue={_setValue}
+          color={color}
+          setColor={setColor}
+        />
+      )}
     </div>
   )
 }

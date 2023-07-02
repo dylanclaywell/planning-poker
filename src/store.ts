@@ -1,15 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { rootReducer, State } from './slices/rootSlice'
+import { rootReducer, State as RootSliceState } from './slices/rootSlice'
+import { teamReducer, State as TeamState } from './slices/teamSlice'
 import { cardReducer } from './slices/cardSlice'
 import { avatarReducer } from './slices/avatarSlice'
 
-export function createStore(initialState?: { root?: State }) {
+export function createStore(initialState?: {
+  root?: RootSliceState
+  team?: TeamState
+}) {
   return configureStore({
     reducer: {
       root: rootReducer,
       card: cardReducer,
       avatar: avatarReducer,
+      team: teamReducer,
     },
     preloadedState: initialState,
   })

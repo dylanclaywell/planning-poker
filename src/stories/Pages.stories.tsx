@@ -12,21 +12,32 @@ export default meta
 
 type Story = StoryObj
 
-function DefaultRender() {
-  const store = createStore()
-
-  return (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  )
-}
-
 const store = createStore({
   root: {
     pointSequence: 'fibonacci',
   },
 })
+
+const teamStore = createStore({
+  team: {
+    members: [
+      {
+        name: 'John',
+      },
+      {
+        name: 'Jane',
+      },
+    ],
+  },
+})
+
+function DefaultRender(args?: { store?: ReturnType<typeof createStore> }) {
+  return (
+    <Provider store={args?.store ?? store}>
+      <App />
+    </Provider>
+  )
+}
 
 function WithFibonacciRender() {
   return (
@@ -45,6 +56,13 @@ export const Default: Story = {
 
 export const WithFibonacci: Story = {
   render: () => <WithFibonacciRender />,
+  parameters: {
+    layout: 'fullscreen',
+  },
+}
+
+export const WithTeam: Story = {
+  render: () => <DefaultRender store={teamStore} />,
   parameters: {
     layout: 'fullscreen',
   },

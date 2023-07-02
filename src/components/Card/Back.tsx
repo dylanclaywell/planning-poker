@@ -1,10 +1,11 @@
 import clsx from 'clsx'
 
 export type Props = {
+  color: string
   flipped?: boolean
 }
 
-export function Back({ flipped }: Props) {
+export function Back({ flipped, color }: Props) {
   return (
     <div
       className={clsx(
@@ -14,7 +15,12 @@ export function Back({ flipped }: Props) {
         }
       )}
     >
-      <div className="w-full h-full bg-blue-800 rounded-lg"></div>
+      <div
+        className="w-full h-full rounded-lg"
+        style={{
+          backgroundColor: color,
+        }}
+      ></div>
     </div>
   )
 }
