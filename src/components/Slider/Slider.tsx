@@ -33,6 +33,7 @@ export function Slider({ label, value, onChange, min, max, fullWidth }: Props) {
             [&::-moz-range-thumb]:bg-gray-400
             [&::-moz-range-thumb]:hover:bg-cyan-700
             [&::-moz-range-thumb]:rounded-sm
+            [&::-moz-range-thumb]:border-none
           `}
           type="range"
           value={value}

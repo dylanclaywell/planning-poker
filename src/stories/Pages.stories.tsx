@@ -38,8 +38,14 @@ function WithFibonacciRender() {
 
 export const Default: Story = {
   render: () => <DefaultRender />,
+  parameters: {
+    layout: 'fullscreen',
+  },
 }
 
 export const WithFibonacci: Story = {
   render: () => <WithFibonacciRender />,
+  parameters: {
+    layout: 'fullscreen',
+  },
 }

@@ -15,8 +15,10 @@ export const Default: Story = {
   args: {
     eye: { spacing: 10, size: 15, height: 20, type: 'round' },
     mouth: {
-      height: 0,
-      offset: 0,
+      height: 15,
+      width: 15,
+      xPosition: 0,
+      yPosition: 0,
       size: 50,
       type: 'happy',
     },

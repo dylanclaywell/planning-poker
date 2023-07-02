@@ -30,3 +30,11 @@ export const Default: Story = {
 export const WithFibonacciSequence: Story = {
   render: () => <WithFibonacci />,
 }
+
+export const Flipped: Story = {
+  render: CardComponent,
+  args: {
+    flipped: true,
+    value: 0,
+  },
+}

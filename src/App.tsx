@@ -10,13 +10,24 @@ export function App() {
   const cardValue = useAppSelector((state) => state.card.value)
 
   return (
-    <>
-      <Table></Table>
-      <Card
-        sequence={sequence}
-        value={cardValue}
-        setValue={(value) => dispatch(setValue(value))}
-      />
-    </>
+    <div className="flex-col">
+      <div className="flex justify-center items-center flex-grow h-screen">
+        <Table></Table>
+      </div>
+      <div className="absolute top-4 w-fit left-1/2 -translate-x-1/2">
+        <Card
+          sequence={sequence}
+          value={cardValue}
+          setValue={(value) => dispatch(setValue(value))}
+        />
+      </div>
+      <div className="absolute bottom-4 w-fit left-1/2 -translate-x-1/2">
+        <Card
+          sequence={sequence}
+          value={cardValue}
+          setValue={(value) => dispatch(setValue(value))}
+        />
+      </div>
+    </div>
   )
 }
